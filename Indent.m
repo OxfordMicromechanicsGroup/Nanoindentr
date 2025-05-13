@@ -47,4 +47,37 @@ classdef Indent
             end
         end
     end
+
+    methods(Static)
+        function unit = get_unit(var)
+            arguments
+                var (1,1) string
+            end
+            switch var
+                case "displacement"
+                    unit = "nm";
+                case "depth"
+                    unit = "nm";
+                case "load"
+                    unit = "mN";
+                case "time"
+                    unit = "s";
+                case "HCS"
+                    unit = "N/m";
+                case "H"
+                    unit = "GPa";
+                case "E"
+                    unit = "GPa";
+                case "strain"
+                    unit = "1";
+                case "stress"
+                    unit = "GPa";
+                case "temperature"
+                    unit = "K";
+                otherwise
+                    warning('get_unit with unknown variable of %s !\n', var)
+            end
+        end
+    end
+
 end
