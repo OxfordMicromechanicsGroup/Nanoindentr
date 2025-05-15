@@ -5,6 +5,15 @@ function indents = import_agilent_csm(workbookFile)
 %% Input handling
 warning('off','MATLAB:table:ModifiedAndSavedVarnames')
 
+% Reads the results sheet and translates it into MATLAB format
+opts = spreadsheetImportOptions("NumVariables", 7);
+opts.VariableNames = ["Test", "AvgModulus", "AvgHardness", "DriftCorrection", "Time", "TipName", "Temperature"];
+opts.VariableTypes = ["double","double", "double", "double", "datetime", "string", "double"];
+results_sheet = readtable(workbookFile, opts, "UseExcel", false, "Sheet","Results"); % ,"NumHeaderLines",1, "VariableNamingRule","modify"
+results_sheet(isnan(results_sheet.Test),:) = [];
+results_sheet.Time = datetime(results_sheet.Time, "Format", "HH:mm:ss");
+results_sheet.Temperature(isnan(results_sheet.Temperature)) = 20;
+
 % Gets the sheet names from the Excel
 sheets = sheetnames(workbookFile);
 
@@ -15,10 +24,6 @@ SheetNames = SheetNames(TF_tagged);
 
 % If row start and end points
 % dataLines = [3, inf];
-% opts = spreadsheetImportOptions("NumVariables", 7);
-% opts.DataRange = "A" + dataLines(1, 1) + ":G" + dataLines(1, 2);
-% opts.VariableNames = ["Segment", "DisplacementIntoSurface", "LoadOnSample", "TimeOnSample", "HarmonicContactStiffness", "Hardness", "Modulus"];
-% opts.VariableTypes = ["double","double", "double", "double", "double", "double", "double"];
 
 indent_template = Indent;
 indent_template.temperature = NaN;
@@ -52,8 +57,23 @@ for i = 1:length(SheetNames)
     indents(IN).HCS = output.HarmonicContactStiffness;
     indents(IN).H = output.Hardness;
     indents(IN).E = output.Modulus;
+    indents(IN).temperature = results_sheet.Temperature(IN)+273; % K
+    
+    tipName = results_sheet.TipName(IN);
+    tipLoc = fullfile('.\tips',tipName+".mat");
+    if isfile(tipLoc) == false
+        tip = Tip;
+        tip.name = tipName;
+        save(tipLoc, "tip");
+        warning('Tip not found in tips folder, it has been created but please enter in all of the information for it');
+    else
+        tip = load(tipLoc).tip;
+        % fprintf('Loaded tip "%s"\n', tip.name);
+    end
+    indents(IN).tip = tip;
 
     indents(IN) = indents(IN).clean_data;
+    
     % disp(indents(IN).H(1))
 
 end

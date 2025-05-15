@@ -30,10 +30,10 @@ classdef Indent
 
     methods
         function obj = clean_data(obj)
-            % Cleans the data of the indent by selecting data with positive
-            % displacement and with hardness less than 1000 GPa
+            % Cleans the data of the indent by selecting data with
+            % modulus less than 1000 GPa
             % fprintf('Cleaning indent %d\n', obj.indent_number);
-            TF = obj.H < 1E3;
+            TF = obj.E > 0 & obj.E < 1E3;
             obj = remove_rows(obj, ~TF);
         end
 

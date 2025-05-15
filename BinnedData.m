@@ -43,11 +43,16 @@ classdef BinnedData
             % patch(ax, 'XData', Boundary_x, 'YData', Boundary_y, 'FaceColor', 'r', 'EdgeColor', 'none', 'FaceAlpha', 0.4, 'DisplayName', 'Uncertainty');
         end
 
-        function plot(obj)
-            p = plot(obj.binMidPoints, obj.val);
+        function plot(obj, DisplayName, options)
+            arguments
+                obj BinnedData
+                DisplayName (1,1) string;
+                options.color (1,1) string = "#808080";
+            end
+            plot(obj.binMidPoints, obj.val, Color=options.color, DisplayName=DisplayName);
             hold on;
             [Boundary_x, Boundary_y, ~] = gen_ShadedRegion(obj); % 
-            patch('XData', Boundary_x, 'YData', Boundary_y, 'FaceColor', p.Color, 'EdgeColor', 'none', 'FaceAlpha', 0.4, 'HandleVisibility', 'off');
+            patch('XData', Boundary_x, 'YData', Boundary_y, 'FaceColor', options.color, 'EdgeColor', 'none', 'FaceAlpha', 0.4, 'HandleVisibility', 'off');
             % errorbar(obj.binMidPoints, obj.val, obj.neg, obj.neg)
             % plot(Poly)
             % patch('XData', Boundary_x, 'YData', Boundary_y, 'FaceColor', 'red', 'FaceAlpha', 0);

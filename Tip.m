@@ -13,6 +13,13 @@ classdef Tip
         name (1,1) string % Tip name on box
         owner (1,1) string % Owner of tip
         type (1,1) string % Berkovich, spherical, etc.
-        calibration_date (1,1) string % The date that the tip was last calibrated
+        calibration_date (1,1) datetime % The date that the tip was calibrated
     end
+
+
+    % tip = Tip;
+    % tip.name = tipName;
+    % tip.owner = "Bo-Shiuan Li";
+    % tip.type = "Berkovich";
+    % tip.calibration_date = datetime("01/01/2020", "Format","dd/MM/uuuu");
 end
