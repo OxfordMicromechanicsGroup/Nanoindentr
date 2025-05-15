@@ -14,7 +14,7 @@ material_name = "Cantor Alloy";
 sample_condition = "Reference";
 sample_details = "";
 x_variable = "depth";
-y_variable = "E";
+y_variable = "H";
 
 % Set this to true to select the files based using a pop up window rather than pasting as a string array.
 GUI_on_off = false;
@@ -44,9 +44,9 @@ for i = 1:length(filepaths)
     
 
 
-    binnedData = s.E;
+    binnedData = s.(y_variable);
 
-    if binnedData.x_variable ~= "depth"
+    if binnedData.x_variable ~= x_variable
         num_skipped = num_skipped+1;
         continue
     end
