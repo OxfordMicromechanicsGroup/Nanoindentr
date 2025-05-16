@@ -49,7 +49,7 @@ classdef BinnedData
                 DisplayName (1,1) string;
                 options.color (1,1) string = "#808080";
             end
-            plot(obj.binMidPoints, obj.val, Color=options.color, DisplayName=DisplayName);
+            plot(obj.binMidPoints, obj.val, Color=options.color, DisplayName=DisplayName, LineWidth=3);
             hold on;
             [Boundary_x, Boundary_y, ~] = gen_ShadedRegion(obj); % 
             patch('XData', Boundary_x, 'YData', Boundary_y, 'FaceColor', options.color, 'EdgeColor', 'none', 'FaceAlpha', 0.4, 'HandleVisibility', 'off');

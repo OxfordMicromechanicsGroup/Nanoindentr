@@ -8,10 +8,10 @@ clc % Clears the command window
 addpath(addpath('.\import_plugins'));
 addpath(addpath('.\data'));
 
-sample_name = "Green Reference";
-material_name = "Green Reference";
-sample_condition = "";
-sample_details = "";
+sample_name = "filename";
+material_name = "alloy name";
+sample_condition = "unirradiated";
+sample_details = "He+ ions 3 MeV";
 x_variable = "depth";
 y_variable = "E";
 
@@ -23,7 +23,7 @@ filepaths = [];
 
 
 indents = import_agilent_csm(filepaths);
-indents([4,7]) = [];
+% indents([4,7]) = [];
 
 s = IndentSummary(material_name, indents, "condition",sample_condition,"details",sample_details);
 s = s.bin(50, x_variable);
@@ -31,5 +31,6 @@ s = s.bin(50, x_variable);
 figure;
 s.plot_all_indents(x_variable, y_variable)
 s.(y_variable).plot(sample_name);
+
 
 save(fullfile('.\data\',sprintf("%s.mat",sample_name)), "s");

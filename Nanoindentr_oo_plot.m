@@ -9,19 +9,15 @@ clc % Clears the command window
 addpath(addpath('.\import_plugins'));
 addpath(addpath('.\data'));
 
-sample_name = "Cantor Reference";
-material_name = "Cantor Alloy";
-sample_condition = "Reference";
-sample_details = "";
-x_variable = "depth";
-y_variable = "H";
-
 % Set this to true to select the files based using a pop up window rather than pasting as a string array.
 GUI_on_off = false;
 
+x_variable = "depth";
+y_variable = "E";
+
 if GUI_on_off == false
     % Enter path to Mat files here. Should be string or string array.
-    filepaths = [".\data\Cantor Reference.mat", ".\data\Green Scrap.mat", ".\data\Green Reference.mat"];
+    filepaths = [".\data\Steel.mat", ".\data\Brass.mat"]; 
 else
     Filter = '*.mat';
     [files, path] = uigetfile(Filter, sprintf('Select nanoindentation %s files...', Filter), "MultiSelect","on");
@@ -29,7 +25,9 @@ else
 end
 [path, ~, ~] = fileparts(filepaths(1));
 
-Colours = {'#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'};
+% Colours = {'#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'};
+Colours = {'#e6194b', '#3cb44b', '#f032e6', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000'};
+
 
 fig = figure;
 ax = gca;

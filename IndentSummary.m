@@ -162,7 +162,7 @@ classdef IndentSummary
                 yVar (1,1) string = "load"
             end
             for i = 1:length(obj.indents)
-                scatter(obj.indents(i).(xVar), obj.indents(i).(yVar), '.', 'DisplayName', sprintf('Indent %d', i));
+                scatter(obj.indents(i).(xVar), obj.indents(i).(yVar), '.', 'DisplayName', sprintf('Indent %d', i), 'SizeData', 10);
                 hold on
             end
             xlabel(sprintf("%s [%s]",xVar, Indent.get_unit(xVar)))

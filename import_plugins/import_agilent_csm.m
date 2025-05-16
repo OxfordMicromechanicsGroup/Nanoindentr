@@ -40,9 +40,11 @@ for i = 1:length(SheetNames)
     %     tb = readtable(workbookFile, opts, "UseExcel", false);
     %     output = [output; tb];
     % end
-    if sum(ismember(output.Properties.VariableNames, 'Segment')) > 0
-        output = removevars(output, "Segment");
-    end
+    % if sum(ismember(output.Properties.VariableNames, {'Segment','Var1'})) > 0
+        % output = removevars(output, ["Segment" , "Var1"]);
+    vars2remove = ismember(output.Properties.VariableNames, {'Segment','Var1'});
+    output(:,vars2remove) = [];
+    % end
 
     TF = sum(isfinite(table2array(output)),2)~=0;
     output = output(TF,:);
