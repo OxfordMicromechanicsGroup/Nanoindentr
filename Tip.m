@@ -14,6 +14,9 @@ classdef Tip
         owner (1,1) string % Owner of tip
         type (1,1) string % Berkovich, spherical, etc.
         calibration_date (1,1) datetime % The date that the tip was calibrated
+        E_i (1,1) double = 1147; % Indenter Young's Modulus 
+        nu_i (1,1) double = 0.07; % Indenter Poisson Ratio
+        frame_stiffness (1,1) double = nan;
     end
 
 

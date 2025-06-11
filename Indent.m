@@ -33,7 +33,11 @@ classdef Indent
             % Cleans the data of the indent by selecting data with
             % modulus less than 1000 GPa
             % fprintf('Cleaning indent %d\n', obj.indent_number);
-            TF = obj.E > 0 & obj.E < 1E3;
+            if isempty(obj.strain) == false
+                TF = obj.strain > 0;
+            else
+                TF = obj.E > 0 & obj.E < 1E3;
+            end
             obj = remove_rows(obj, ~TF);
         end
 

@@ -74,6 +74,13 @@ for i = 1:length(SheetNames)
     end
     indents(IN).tip = tip;
 
+    if (class(tip) == "Tip_spherical") == true
+        if isfinite(tip.coeff_Ac_1) == true
+            indents(IN).strain = tip.get_strain(indents(IN).depth, indents(IN).load, indents(IN).HCS)/100;
+            indents(IN).stress = tip.get_stress(indents(IN).depth, indents(IN).load);
+        end
+    end
+
     indents(IN) = indents(IN).clean_data;
     
     % disp(indents(IN).H(1))
